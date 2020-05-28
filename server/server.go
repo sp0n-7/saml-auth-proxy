@@ -64,9 +64,10 @@ func Start(ctx context.Context, cfg *Config) error {
 	}
 
 	samlOpts := samlsp.Options{
-		URL:         *rootUrl,
-		Key:         keyPair.PrivateKey.(*rsa.PrivateKey),
-		Certificate: keyPair.Leaf,
+		URL:               *rootUrl,
+		Key:               keyPair.PrivateKey.(*rsa.PrivateKey),
+		Certificate:       keyPair.Leaf,
+		AllowIDPInitiated: true,
 	}
 
 	samlOpts.IDPMetadata, err = fetchMetadata(ctx, httpClient, idpMetadataUrl)
