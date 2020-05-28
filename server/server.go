@@ -103,10 +103,11 @@ func Start(ctx context.Context, cfg *Config) error {
 	// Library is still using same Options struct for all of these
 	// ...so the fields are flagged as deprecated but library
 	middleware.Session = samlsp.DefaultSessionProvider(samlsp.Options{
-		URL:          *rootUrl,
-		Key:          keyPair.PrivateKey.(*rsa.PrivateKey),
-		CookieMaxAge: cfg.CookieMaxAge,
-		CookieDomain: rootUrl.Hostname(),
+		URL:               *rootUrl,
+		Key:               keyPair.PrivateKey.(*rsa.PrivateKey),
+		CookieMaxAge:      cfg.CookieMaxAge,
+		CookieDomain:      rootUrl.Hostname(),
+		AllowIDPInitiated: true,
 	})
 
 	proxy, err := NewProxy(cfg)
